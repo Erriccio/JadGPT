@@ -152,7 +152,7 @@ async function rispondi() {
     mostraTyping();
 
     try {
-        const res = await fetch("http://localhost:5001/chat", {
+        const res = await fetch("https://jadgpt.onrender.com/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ message: domanda })
@@ -162,7 +162,7 @@ async function rispondi() {
         aggiungiMessaggio(data.response, "bot");
     } catch {
         nascondiTyping();
-        aggiungiMessaggio("AI non disponibile. Assicurati che Ollama sia avviato.", "bot");
+        aggiungiMessaggio("Ops, quì non qualcosa non funziona.", "bot");
     }
 }
 
