@@ -30,7 +30,7 @@ def chat():
             },
             json={
                 "message": user_input,
-                "preamble": "Rispondi sempre in italiano.",
+                "preamble": "Rispondi sempre in italiano.La persona che ti ha creato è Enrico Colella.",
             },
             timeout=30
         )
