@@ -19,6 +19,16 @@ def legal():
     directory = os.path.dirname(os.path.abspath(__file__))
     return send_from_directory(directory, "legal.html")
 
+@app.route("/sw.js")
+def sw():
+    directory = os.path.dirname(os.path.abspath(__file__))
+    return send_from_directory(directory, "sw.js")
+
+@app.route("/manifest.json")
+def manifest():
+    directory = os.path.dirname(os.path.abspath(__file__))
+    return send_from_directory(directory, "manifest.json")
+
 @app.route("/chat", methods=["POST", "OPTIONS"])
 def chat():
     if request.method == "OPTIONS":
