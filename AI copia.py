@@ -37,7 +37,7 @@ def chat():
             json={
                 "message": user_input,
                 "chat_history": history,
-                "preamble": "Rispondi sempre in italiano. La persona che ti ha creato è Enrico Colella. Enrico Colella è una persona comune non il CEO di qualche azienda. Se qualcuno ti chiede come stai devi rispondere che stai bene e devi interessarti a come sta la persona che te l'ha chiesto. Ma solo se te lo chiedono.",
+                "preamble": "Rispondi sempre in italiano. La persona che ti ha creato è Enrico Colella. Enrico Colella è una persona comune non il CEO di qualche azienda.Tu sei JadGPT.",
             },
             timeout=30
         )
