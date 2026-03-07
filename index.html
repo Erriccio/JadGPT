@@ -42,6 +42,10 @@
         .msg-container {
             width: 100%;
             display: flex;
+            flex-direction: column;
+        }
+        .msg-row {
+            display: flex;
         }
         .msg {
             padding: 12px 15px;
@@ -50,9 +54,9 @@
             font-size: 16px;
             line-height: 1.6;
         }
-        .user { justify-content: flex-end; }
+        .user .msg-row { justify-content: flex-end; }
         .user .msg { background: #d9e8ff; }
-        .bot { justify-content: flex-start; }
+        .bot .msg-row { justify-content: flex-start; }
         .bot .msg { background: #e9e9eb; }
         .bot .msg p { margin: 0 0 8px; }
         .bot .msg p:last-child { margin-bottom: 0; }
@@ -64,15 +68,15 @@
         .bot .msg strong { font-weight: bold; }
         .bot .msg em { font-style: italic; }
         .bot .msg code {
-            background: #d0d0d0;
+            background: #d9e8ff;
             padding: 2px 6px;
             border-radius: 4px;
             font-family: monospace;
             font-size: 14px;
         }
         .bot .msg pre {
-            background: #2d2d2d;
-            color: #f8f8f2;
+            background: #d9e8ff;
+            color: #000;
             padding: 12px;
             border-radius: 8px;
             overflow-x: auto;
@@ -83,6 +87,20 @@
             padding: 0;
             color: inherit;
         }
+        .copy-btn {
+            margin-top: 5px;
+            margin-left: 4px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #aaa;
+            font-size: 13px;
+            padding: 2px 6px;
+            border-radius: 6px;
+            align-self: flex-start;
+            transition: color 0.2s;
+        }
+        .copy-btn:hover { color: #4D6CFF; }
         #welcome {
             text-align: center;
             margin-top: 200px;
@@ -169,6 +187,10 @@
     function aggiungiMessaggio(testo, tipo) {
         const wrap = document.createElement("div");
         wrap.className = "msg-container " + tipo;
+
+        const row = document.createElement("div");
+        row.className = "msg-row";
+
         const msg = document.createElement("div");
         msg.className = "msg";
 
@@ -178,7 +200,23 @@
             msg.textContent = testo;
         }
 
-        wrap.appendChild(msg);
+        row.appendChild(msg);
+        wrap.appendChild(row);
+
+        // Pulsante copia solo per i messaggi del bot
+        if (tipo === "bot") {
+            const copyBtn = document.createElement("button");
+            copyBtn.className = "copy-btn";
+            copyBtn.textContent = "📋 Copia";
+            copyBtn.onclick = () => {
+                navigator.clipboard.writeText(testo).then(() => {
+                    copyBtn.textContent = "✅ Copiato!";
+                    setTimeout(() => { copyBtn.textContent = "📋 Copia"; }, 2000);
+                });
+            };
+            wrap.appendChild(copyBtn);
+        }
+
         const welcome = document.getElementById("welcome");
         if (welcome) welcome.remove();
         chat.appendChild(wrap);
@@ -190,9 +228,11 @@
         wrap.className = "msg-container bot";
         wrap.id = "typing";
         wrap.innerHTML = `
-            <div class="msg">
-                <div class="typing">
-                    <span></span><span></span><span></span>
+            <div class="msg-row">
+                <div class="msg">
+                    <div class="typing">
+                        <span></span><span></span><span></span>
+                    </div>
                 </div>
             </div>`;
         chat.appendChild(wrap);
