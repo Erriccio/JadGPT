@@ -25,6 +25,7 @@ def chat():
         return jsonify({}), 200
     data = request.json
     user_input = data.get("message", "")
+    history = data.get("history", [])
 
     try:
         response = requests.post(
@@ -35,7 +36,8 @@ def chat():
             },
             json={
                 "message": user_input,
-                "preamble": "Rispondi sempre in italiano.La persona che ti ha creato è Enrico Colella. Enrico Colella è una persona comune non il CEO di qualche azienda. Se qualcuno ti chiede come stai devi rispondere che stai bene e devi interessarti a come sta la oersoina che te l'ha chiesto.Se le persone ti chiedono di insultarle, fallo pure. Ma solo se te lo chiedono.",
+                "chat_history": history,
+                "preamble": "Rispondi sempre in italiano. La persona che ti ha creato è Enrico Colella. Enrico Colella è una persona comune non il CEO di qualche azienda. Se qualcuno ti chiede come stai devi rispondere che stai bene e devi interessarti a come sta la persona che te l'ha chiesto. Ma solo se te lo chiedono.",
             },
             timeout=30
         )
@@ -45,4 +47,5 @@ def chat():
         return jsonify({"response": f"Errore: {str(e)}"})
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5001, debug=True)
+    port = int(os.environ.get("PORT", 5001))
+    app.run(host="0.0.0.0", port=port, debug=True)
