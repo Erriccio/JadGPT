@@ -4,15 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JadGPT</title>
-
-    <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "vrz3ukwnxy");
-</script>
-   
     <style>
         body {
             margin: 0;
@@ -128,7 +119,7 @@
             <p>Scrivi un messaggio per iniziare.</p>
         </div>
     </div>
-   <div id="input-area">
+    <div id="input-area">
         <input id="domanda" type="text" placeholder="Scrivi un messaggio...">
         <button id="sendBtn">➤</button>
     </div>
@@ -143,6 +134,9 @@
     const chat = document.getElementById("chat");
     const input = document.getElementById("domanda");
     const sendBtn = document.getElementById("sendBtn");
+
+    // Cronologia messaggi per la sessione corrente
+    let chatHistory = [];
 
     function aggiungiMessaggio(testo, tipo) {
         const wrap = document.createElement("div");
@@ -188,11 +182,19 @@
             const res = await fetch("https://jadgpt.onrender.com/chat", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message: domanda })
+                body: JSON.stringify({
+                    message: domanda,
+                    history: chatHistory
+                })
             });
             const data = await res.json();
             nascondiTyping();
             aggiungiMessaggio(data.response, "bot");
+
+            // Aggiorna la cronologia
+            chatHistory.push({ role: "USER", message: domanda });
+            chatHistory.push({ role: "CHATBOT", message: data.response });
+
         } catch {
             nascondiTyping();
             aggiungiMessaggio("Ops, qui c'è qualcosa che non va", "bot");
@@ -208,10 +210,6 @@
 
     sendBtn.addEventListener("click", rispondi);
 </script>
-<div style="text-align:center; padding: 10px; font-size: 12px; color: #aaa;">
-    <a href="/legal.html" style="color: #aaa; text-decoration: none;">Privacy Policy</a> · 
-    <a href="/legal.html" style="color: #aaa; text-decoration: none;">Cookie Policy</a> · 
-    <a href="/legal.html" style="color: #aaa; text-decoration: none;">Termini di Utilizzo</a>
-</div>
+
 </body>
 </html>
