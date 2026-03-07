@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JadGPT</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
     <style>
         body {
             margin: 0;
@@ -47,13 +48,41 @@
             border-radius: 12px;
             max-width: 75%;
             font-size: 16px;
-            line-height: 1.4;
-            white-space: pre-wrap;
+            line-height: 1.6;
         }
         .user { justify-content: flex-end; }
         .user .msg { background: #d9e8ff; }
         .bot { justify-content: flex-start; }
         .bot .msg { background: #e9e9eb; }
+        .bot .msg p { margin: 0 0 8px; }
+        .bot .msg p:last-child { margin-bottom: 0; }
+        .bot .msg ul, .bot .msg ol {
+            margin: 6px 0;
+            padding-left: 20px;
+        }
+        .bot .msg li { margin-bottom: 4px; }
+        .bot .msg strong { font-weight: bold; }
+        .bot .msg em { font-style: italic; }
+        .bot .msg code {
+            background: #d0d0d0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .bot .msg pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 12px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 14px;
+        }
+        .bot .msg pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+        }
         #welcome {
             text-align: center;
             margin-top: 200px;
@@ -135,7 +164,6 @@
     const input = document.getElementById("domanda");
     const sendBtn = document.getElementById("sendBtn");
 
-    // Cronologia messaggi per la sessione corrente
     let chatHistory = [];
 
     function aggiungiMessaggio(testo, tipo) {
@@ -143,7 +171,13 @@
         wrap.className = "msg-container " + tipo;
         const msg = document.createElement("div");
         msg.className = "msg";
-        msg.textContent = testo;
+
+        if (tipo === "bot") {
+            msg.innerHTML = marked.parse(testo);
+        } else {
+            msg.textContent = testo;
+        }
+
         wrap.appendChild(msg);
         const welcome = document.getElementById("welcome");
         if (welcome) welcome.remove();
@@ -191,7 +225,6 @@
             nascondiTyping();
             aggiungiMessaggio(data.response, "bot");
 
-            // Aggiorna la cronologia
             chatHistory.push({ role: "USER", message: domanda });
             chatHistory.push({ role: "CHATBOT", message: data.response });
 
