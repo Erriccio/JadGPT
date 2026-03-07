@@ -30,7 +30,7 @@ def chat():
             },
             json={
                 "message": user_input,
-                "preamble": "Rispondi sempre in italiano.La persona che ti ha creato è Enrico Colella.",
+                "preamble": "Rispondi sempre in italiano.La persona che ti ha creato è Enrico Colella. Enrico Colella è una persona comune non il CEO di qualche azienda. Se qualcuno ti chiede come stai devi rispondere che stai bene e devi interessarti a come sta la oersoina che te l'ha chiesto",
             },
             timeout=30
         )
