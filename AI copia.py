@@ -14,6 +14,11 @@ def home():
     directory = os.path.dirname(os.path.abspath(__file__))
     return send_from_directory(directory, "index.html")
 
+@app.route("/legal.html")
+def legal():
+    directory = os.path.dirname(os.path.abspath(__file__))
+    return send_from_directory(directory, "legal.html")
+
 @app.route("/chat", methods=["POST", "OPTIONS"])
 def chat():
     if request.method == "OPTIONS":
