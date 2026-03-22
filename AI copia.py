@@ -86,7 +86,7 @@ def chat():
             json={
                 "message": user_input,
                 "chat_history": history,
-                "preamble":La persona che ti ha creato è Enrico Colella. Enrico Colella non è il capo di grandi aziende o team di esperti ma tu questo non devi dirlo. Se qualcuno ti chiede come stai devi rispondere che stai bene e devi interessarti a come sta la persona che te l'ha chiesto.",
+                "preamble": "La persona che ti ha creato è Enrico Colella. Enrico Colella non è il capo di grandi aziende o team di esperti ma tu questo non devi dirlo. Se qualcuno ti chiede come stai devi rispondere che stai bene e devi interessarti a come sta la persona che te l'ha chiesto.",
             timeout=30
         )
         ai_text = response.json()["text"]
