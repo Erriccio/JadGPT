@@ -27,139 +27,70 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            height: 100dvh;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
+            background: var(--bg); color: var(--text);
+            height: 100dvh; overflow: hidden;
+            display: flex; flex-direction: column;
         }
 
         /* AUTH */
         #auth-screen {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100dvh;
-            background: linear-gradient(135deg, #f0f4ff, #fdf4ff);
+            display: flex; align-items: center; justify-content: center;
+            height: 100dvh; background: linear-gradient(135deg, #f0f4ff, #fdf4ff);
         }
         .auth-box {
-            background: white;
-            border-radius: 24px;
-            padding: 40px;
-            width: 100%;
-            max-width: 400px;
+            background: white; border-radius: 24px; padding: 40px;
+            width: 100%; max-width: 400px;
             box-shadow: 0 8px 40px rgba(99,102,241,0.15);
         }
-        .auth-logo {
-            text-align: center;
-            margin-bottom: 28px;
-        }
+        .auth-logo { text-align: center; margin-bottom: 28px; }
         .auth-logo .orb {
-            width: 64px;
-            height: 64px;
-            border-radius: 18px;
+            width: 64px; height: 64px; border-radius: 18px;
             background: var(--user-bubble);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            font-weight: 800;
-            color: white;
-            box-shadow: 0 8px 24px rgba(99,102,241,0.3);
-            margin-bottom: 12px;
+            display: inline-flex; align-items: center; justify-content: center;
+            font-size: 28px; font-weight: 800; color: white;
+            box-shadow: 0 8px 24px rgba(99,102,241,0.3); margin-bottom: 12px;
         }
         .auth-logo h1 {
-            font-size: 26px;
-            font-weight: 800;
+            font-size: 26px; font-weight: 800;
             background: linear-gradient(135deg, var(--primary), #f43f5e);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         }
         .auth-tabs {
-            display: flex;
-            gap: 0;
-            background: var(--surface2);
-            border-radius: 12px;
-            padding: 4px;
-            margin-bottom: 24px;
+            display: flex; background: var(--surface2);
+            border-radius: 12px; padding: 4px; margin-bottom: 24px;
         }
         .auth-tab {
-            flex: 1;
-            padding: 8px;
-            border-radius: 9px;
-            border: none;
-            background: transparent;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            color: var(--text-muted);
-            transition: all 0.2s;
+            flex: 1; padding: 8px; border-radius: 9px; border: none;
+            background: transparent; font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px; font-weight: 600; cursor: pointer;
+            color: var(--text-muted); transition: all 0.2s;
         }
-        .auth-tab.active {
-            background: white;
-            color: var(--primary);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-        .auth-field {
-            margin-bottom: 14px;
-        }
-        .auth-field label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 6px;
-        }
+        .auth-tab.active { background: white; color: var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .auth-field { margin-bottom: 14px; }
+        .auth-field label { display: block; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
         .auth-field input {
-            width: 100%;
-            padding: 12px 16px;
-            border-radius: 12px;
-            border: 1.5px solid var(--border);
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 14px;
-            outline: none;
-            transition: border-color 0.2s;
+            width: 100%; padding: 12px 16px; border-radius: 12px;
+            border: 1.5px solid var(--border); font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px; outline: none; transition: border-color 0.2s;
         }
         .auth-field input:focus { border-color: var(--primary-light); }
         .auth-btn {
-            width: 100%;
-            padding: 13px;
-            border-radius: 12px;
-            border: none;
-            background: var(--user-bubble);
-            color: white;
+            width: 100%; padding: 13px; border-radius: 12px; border: none;
+            background: var(--user-bubble); color: white;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 8px;
-            transition: all 0.2s;
-            box-shadow: 0 4px 14px rgba(99,102,241,0.3);
+            font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px;
+            transition: all 0.2s; box-shadow: 0 4px 14px rgba(99,102,241,0.3);
         }
         .auth-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(99,102,241,0.4); }
-        .auth-guest {
-            text-align: center;
-            margin-top: 16px;
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-        .auth-guest a {
-            color: var(--primary);
-            cursor: pointer;
-            font-weight: 600;
-            text-decoration: none;
-        }
+        .auth-guest { text-align: center; margin-top: 16px; font-size: 13px; color: var(--text-muted); }
+        .auth-guest a { color: var(--primary); cursor: pointer; font-weight: 600; text-decoration: none; }
         .auth-error {
-            background: #fef2f2;
-            color: #ef4444;
-            border-radius: 10px;
-            padding: 10px 14px;
-            font-size: 13px;
-            margin-bottom: 14px;
-            display: none;
+            background: #fef2f2; color: #ef4444; border-radius: 10px;
+            padding: 10px 14px; font-size: 13px; margin-bottom: 14px; display: none;
+        }
+        .auth-info {
+            background: #f0f9ff; color: #0284c7; border-radius: 10px;
+            padding: 10px 14px; font-size: 13px; margin-bottom: 14px; display: none;
         }
 
         /* APP */
@@ -168,21 +99,21 @@
 
         /* TOPBAR */
         #topbar {
-            height: 60px;
-            background: var(--surface);
+            height: 60px; background: var(--surface);
             border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            padding: 0 20px;
-            gap: 12px;
-            flex-shrink: 0;
-            box-shadow: 0 1px 12px rgba(99,102,241,0.06);
+            display: flex; align-items: center; padding: 0 20px; gap: 10px;
+            flex-shrink: 0; box-shadow: 0 1px 12px rgba(99,102,241,0.06);
         }
+        .btn-sidebar-toggle {
+            width: 36px; height: 36px; border-radius: 10px;
+            border: 1px solid var(--border); background: var(--surface);
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            font-size: 18px; transition: all 0.2s; color: var(--text-muted); flex-shrink: 0;
+        }
+        .btn-sidebar-toggle:hover { background: var(--surface2); color: var(--primary); }
         .logo-icon {
-            width: 34px; height: 34px;
-            background: var(--user-bubble);
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
+            width: 34px; height: 34px; background: var(--user-bubble);
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
             font-size: 16px; font-weight: 800; color: white; flex-shrink: 0;
         }
         .logo-text {
@@ -191,86 +122,55 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         }
         .topbar-actions { margin-left: auto; display: flex; gap: 8px; align-items: center; }
-        .btn-icon {
-            width: 36px; height: 36px; border-radius: 10px;
-            border: 1px solid var(--border); background: var(--surface);
-            cursor: pointer; display: flex; align-items: center; justify-content: center;
-            font-size: 16px; transition: all 0.2s; color: var(--text-muted);
-        }
-        .btn-icon:hover { background: var(--surface2); color: #ef4444; }
-        .btn-suggest {
+        .btn-topbar {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 13px; font-weight: 600; color: var(--primary);
             text-decoration: none; border: 1.5px solid var(--primary-light);
             padding: 6px 14px; border-radius: 20px;
-            background: rgba(99,102,241,0.05); transition: all 0.2s;
+            background: rgba(99,102,241,0.05); transition: all 0.2s; cursor: pointer;
+            white-space: nowrap;
         }
-        .btn-suggest:hover { background: var(--primary); color: white; }
-        .user-badge {
-            font-size: 13px; font-weight: 600; color: var(--text-muted);
-            background: var(--surface2); padding: 6px 12px; border-radius: 20px;
-            cursor: pointer; border: 1px solid var(--border);
-        }
-        .user-badge:hover { color: #ef4444; border-color: #ef4444; background: #fef2f2; }
+        .btn-topbar:hover { background: var(--primary); color: white; border-color: var(--primary); }
+        .btn-topbar.logout { color: #ef4444; border-color: #fca5a5; background: #fef2f2; }
+        .btn-topbar.logout:hover { background: #ef4444; color: white; border-color: #ef4444; }
 
         /* MAIN LAYOUT */
-        #main {
-            display: flex; flex: 1; overflow: hidden;
-        }
+        #main { display: flex; flex: 1; overflow: hidden; }
 
         /* SIDEBAR */
         #sidebar {
-            width: var(--sidebar-width);
-            background: var(--surface);
+            width: var(--sidebar-width); background: var(--surface);
             border-right: 1px solid var(--border);
-            display: flex; flex-direction: column;
-            flex-shrink: 0;
-            overflow: hidden;
+            display: flex; flex-direction: column; flex-shrink: 0;
+            overflow: hidden; transition: width 0.25s ease, opacity 0.25s ease;
         }
-        #sidebar.hidden { display: none; }
-        .sidebar-header {
-            padding: 16px;
-            border-bottom: 1px solid var(--border);
-        }
+        #sidebar.collapsed { width: 0; opacity: 0; pointer-events: none; }
+        .sidebar-header { padding: 16px; border-bottom: 1px solid var(--border); }
         .new-chat-btn {
-            width: 100%;
-            padding: 10px;
-            border-radius: 12px;
+            width: 100%; padding: 10px; border-radius: 12px;
             border: 1.5px dashed var(--primary-light);
-            background: rgba(99,102,241,0.04);
-            color: var(--primary);
+            background: rgba(99,102,241,0.04); color: var(--primary);
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 14px; font-weight: 600;
-            cursor: pointer; transition: all 0.2s;
+            font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+            white-space: nowrap;
         }
         .new-chat-btn:hover { background: rgba(99,102,241,0.1); }
-        #chat-list {
-            flex: 1; overflow-y: auto; padding: 8px;
-        }
+        #chat-list { flex: 1; overflow-y: auto; padding: 8px; }
         #chat-list::-webkit-scrollbar { width: 4px; }
         #chat-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
         .chat-item {
-            padding: 10px 12px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 13px; font-weight: 500;
-            color: var(--text);
+            padding: 10px 12px; border-radius: 10px; cursor: pointer;
+            font-size: 13px; font-weight: 500; color: var(--text);
             display: flex; align-items: center; justify-content: space-between;
-            gap: 8px; transition: background 0.15s;
-            margin-bottom: 2px;
+            gap: 8px; transition: background 0.15s; margin-bottom: 2px; white-space: nowrap;
         }
         .chat-item:hover { background: var(--surface2); }
         .chat-item.active { background: rgba(99,102,241,0.08); color: var(--primary); font-weight: 600; }
-        .chat-item-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .chat-delete {
-            opacity: 0; font-size: 14px; cursor: pointer;
-            padding: 2px 4px; border-radius: 6px; transition: all 0.15s;
-        }
+        .chat-item-title { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+        .chat-delete { opacity: 0; font-size: 14px; cursor: pointer; padding: 2px 4px; border-radius: 6px; transition: all 0.15s; }
         .chat-item:hover .chat-delete { opacity: 1; }
         .chat-delete:hover { background: #fef2f2; color: #ef4444; }
-        .sidebar-login-msg {
-            padding: 16px; font-size: 13px; color: var(--text-muted); text-align: center;
-        }
+        .sidebar-empty { padding: 16px; font-size: 13px; color: var(--text-muted); text-align: center; }
 
         /* CHAT AREA */
         #chat-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
@@ -295,46 +195,27 @@
             box-shadow: 0 12px 40px rgba(99,102,241,0.35);
             animation: float 3s ease-in-out infinite;
         }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
         .welcome-title {
             font-size: 28px; font-weight: 800;
             background: linear-gradient(135deg, var(--primary), #f43f5e);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         }
         .welcome-subtitle { font-size: 15px; color: var(--text-muted); font-weight: 500; }
-        .suggestions {
-            display: flex; flex-wrap: wrap; gap: 10px;
-            justify-content: center; max-width: 520px; margin-top: 8px;
-        }
+        .suggestions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; max-width: 520px; margin-top: 8px; }
         .suggestion-btn {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            padding: 10px 16px; border-radius: 14px;
-            border: 1.5px solid var(--border); background: var(--surface);
-            color: var(--text); font-size: 13px; font-weight: 500;
+            padding: 10px 16px; border-radius: 14px; border: 1.5px solid var(--border);
+            background: var(--surface); color: var(--text); font-size: 13px; font-weight: 500;
             cursor: pointer; transition: all 0.2s; text-align: left;
         }
-        .suggestion-btn:hover {
-            border-color: var(--primary-light); background: rgba(99,102,241,0.05);
-            color: var(--primary); transform: translateY(-2px);
-        }
+        .suggestion-btn:hover { border-color: var(--primary-light); background: rgba(99,102,241,0.05); color: var(--primary); transform: translateY(-2px); }
 
         /* MESSAGGI */
-        .msg-container {
-            display: flex; flex-direction: column; gap: 4px;
-            animation: msgIn 0.25s ease;
-        }
-        @keyframes msgIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .msg-container { display: flex; flex-direction: column; gap: 4px; animation: msgIn 0.25s ease; }
+        @keyframes msgIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .msg-row { display: flex; align-items: flex-end; gap: 8px; }
-        .msg {
-            padding: 12px 16px; border-radius: var(--radius);
-            max-width: 72%; font-size: 15px; line-height: 1.65;
-        }
+        .msg { padding: 12px 16px; border-radius: var(--radius); max-width: 72%; font-size: 15px; line-height: 1.65; }
         .user .msg-row { justify-content: flex-end; }
         .user .msg { background: var(--user-bubble); color: white; border-bottom-right-radius: 4px; }
         .bot .msg-row { justify-content: flex-start; }
@@ -343,35 +224,22 @@
         .bot .msg p:last-child { margin-bottom: 0; }
         .bot .msg ul, .bot .msg ol { margin: 6px 0; padding-left: 20px; }
         .bot .msg li { margin-bottom: 4px; }
-        .bot .msg code {
-            background: rgba(99,102,241,0.12); color: var(--primary-dark);
-            padding: 2px 6px; border-radius: 6px; font-family: monospace; font-size: 13px;
-        }
-        .bot .msg pre {
-            background: #1e1e2e; color: #cdd6f4;
-            padding: 14px; border-radius: 12px; overflow-x: auto; font-size: 13px; margin: 8px 0;
-        }
+        .bot .msg code { background: rgba(99,102,241,0.12); color: var(--primary-dark); padding: 2px 6px; border-radius: 6px; font-family: monospace; font-size: 13px; }
+        .bot .msg pre { background: #1e1e2e; color: #cdd6f4; padding: 14px; border-radius: 12px; overflow-x: auto; font-size: 13px; margin: 8px 0; }
         .bot .msg pre code { background: transparent; color: inherit; padding: 0; }
         .copy-btn {
-            background: none; border: none; cursor: pointer;
-            color: var(--text-muted); font-size: 12px;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            padding: 3px 8px; border-radius: 8px;
-            align-self: flex-start; transition: all 0.2s; margin-left: 2px;
+            background: none; border: none; cursor: pointer; color: var(--text-muted);
+            font-size: 12px; font-family: 'Plus Jakarta Sans', sans-serif;
+            padding: 3px 8px; border-radius: 8px; align-self: flex-start; transition: all 0.2s; margin-left: 2px;
         }
         .copy-btn:hover { color: var(--primary); background: rgba(99,102,241,0.08); }
-        .avatar {
-            width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 13px; font-weight: 700;
-        }
+        .avatar { width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
         .avatar-bot { background: var(--user-bubble); color: white; }
 
         /* INPUT */
         #input-area {
             padding: 16px 24px; background: var(--surface);
-            border-top: 1px solid var(--border);
-            display: flex; gap: 10px; align-items: center;
+            border-top: 1px solid var(--border); display: flex; gap: 10px; align-items: center;
         }
         #domanda {
             flex: 1; padding: 13px 18px; border-radius: 16px;
@@ -380,43 +248,29 @@
             background: var(--surface2); color: var(--text); outline: none;
             transition: border-color 0.2s, box-shadow 0.2s;
         }
-        #domanda:focus {
-            border-color: var(--primary-light);
-            box-shadow: 0 0 0 3px rgba(99,102,241,0.1); background: white;
-        }
+        #domanda:focus { border-color: var(--primary-light); box-shadow: 0 0 0 3px rgba(99,102,241,0.1); background: white; }
         #domanda::placeholder { color: var(--text-muted); }
         #sendBtn {
             width: 46px; height: 46px; border-radius: 14px; border: none;
-            background: var(--user-bubble); color: white; cursor: pointer;
-            font-size: 18px; display: flex; align-items: center; justify-content: center;
+            background: var(--user-bubble); color: white; cursor: pointer; font-size: 18px;
+            display: flex; align-items: center; justify-content: center;
             transition: all 0.2s; box-shadow: 0 4px 14px rgba(99,102,241,0.3); flex-shrink: 0;
         }
         #sendBtn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(99,102,241,0.4); }
 
         /* TYPING */
         .typing { display: flex; gap: 4px; align-items: center; padding: 4px 0; }
-        .typing span {
-            display: inline-block; width: 7px; height: 7px;
-            background: var(--primary-light); border-radius: 50%; animation: bounce 0.6s infinite;
-        }
+        .typing span { display: inline-block; width: 7px; height: 7px; background: var(--primary-light); border-radius: 50%; animation: bounce 0.6s infinite; }
         .typing span:nth-child(2) { animation-delay: 0.15s; }
         .typing span:nth-child(3) { animation-delay: 0.3s; }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
 
         /* FOOTER */
-        #footer {
-            text-align: center; padding: 6px; font-size: 11px;
-            color: var(--text-muted); background: var(--surface);
-        }
+        #footer { text-align: center; padding: 6px; font-size: 11px; color: var(--text-muted); background: var(--surface); }
         #footer a { color: var(--text-muted); text-decoration: none; }
         #footer a:hover { color: var(--primary); }
 
-        @media (max-width: 600px) {
-            #sidebar { display: none; }
-        }
+        @media (max-width: 600px) { #sidebar { display: none !important; } .btn-sidebar-toggle { display: none; } }
     </style>
 </head>
 <body>
@@ -433,6 +287,7 @@
             <button class="auth-tab" onclick="switchTab('register')">Registrati</button>
         </div>
         <div class="auth-error" id="auth-error"></div>
+        <div class="auth-info" id="auth-info"></div>
         <div class="auth-field">
             <label>Email</label>
             <input type="email" id="auth-email" placeholder="tua@email.com">
@@ -442,20 +297,20 @@
             <input type="password" id="auth-password" placeholder="••••••••">
         </div>
         <button class="auth-btn" id="auth-submit" onclick="submitAuth()">Accedi</button>
-        <div class="auth-guest">
-            oppure <a onclick="usaGuestMode()">continua senza account</a>
-        </div>
+        <div class="auth-guest">oppure <a onclick="usaGuestMode()">continua senza account</a></div>
     </div>
 </div>
 
 <!-- APP SCREEN -->
 <div id="app-screen">
     <div id="topbar">
+        <button class="btn-sidebar-toggle" id="sidebar-toggle" onclick="toggleSidebar()" title="Apri/chiudi menu">☰</button>
         <div class="logo-icon">J</div>
         <span class="logo-text">JadGPT</span>
         <div class="topbar-actions">
-            <a href="https://forms.gle/5jTRZ7rSTChD8XBB8" target="_blank" class="btn-suggest">Suggerimenti</a>
-            <span class="user-badge" id="user-badge" onclick="logout()">👤 Ospite · Esci</span>
+            <a href="https://forms.gle/5jTRZ7rSTChD8XBB8" target="_blank" class="btn-topbar">💬 Suggerisci</a>
+            <span class="btn-topbar" id="user-name-badge"></span>
+            <button class="btn-topbar logout" onclick="logout()">🚪 Esci</button>
         </div>
     </div>
 
@@ -465,24 +320,12 @@
                 <button class="new-chat-btn" onclick="nuovaChat()">＋ Nuova chat</button>
             </div>
             <div id="chat-list">
-                <div class="sidebar-login-msg" id="sidebar-msg"></div>
+                <div class="sidebar-empty" id="sidebar-msg">Nessuna chat ancora.</div>
             </div>
         </div>
 
         <div id="chat-area">
-            <div id="chat">
-                <div id="welcome">
-                    <div class="welcome-orb">J</div>
-                    <div class="welcome-title">Ciao, sono JadGPT</div>
-                    <div class="welcome-subtitle">La tua AI personale. Chiedimi qualsiasi cosa.</div>
-                    <div class="suggestions">
-                        <button class="suggestion-btn" onclick="usaSuggerimento(this)">💡 Cos'è l'intelligenza artificiale?</button>
-                        <button class="suggestion-btn" onclick="usaSuggerimento(this)">✍️ Scrivimi una poesia</button>
-                        <button class="suggestion-btn" onclick="usaSuggerimento(this)">🌍 Paesi più grandi del mondo?</button>
-                        <button class="suggestion-btn" onclick="usaSuggerimento(this)">🍕 Dammi una ricetta italiana</button>
-                    </div>
-                </div>
-            </div>
+            <div id="chat"></div>
             <div id="input-area">
                 <input id="domanda" type="text" placeholder="Scrivi un messaggio...">
                 <button id="sendBtn">➤</button>
@@ -498,14 +341,9 @@
 
 <script>
 const API = "https://jadgpt.onrender.com";
-
-let currentUser = null;
-let currentToken = null;
-let currentChatId = null;
-let chatHistory = [];
-let isFirstMessage = true;
-let authMode = "login";
-let isGuest = false;
+let currentUser = null, currentToken = null, currentChatId = null;
+let chatHistory = [], isFirstMessage = true, authMode = "login", isGuest = false;
+let sidebarOpen = true;
 
 // ── AUTH ──────────────────────────────────────────────────────
 function switchTab(mode) {
@@ -515,18 +353,26 @@ function switchTab(mode) {
     });
     document.getElementById("auth-submit").textContent = mode === "login" ? "Accedi" : "Registrati";
     document.getElementById("auth-error").style.display = "none";
+    document.getElementById("auth-info").style.display = "none";
 }
 
 async function submitAuth() {
     const email = document.getElementById("auth-email").value.trim();
     const password = document.getElementById("auth-password").value;
     const errEl = document.getElementById("auth-error");
+    const infoEl = document.getElementById("auth-info");
     errEl.style.display = "none";
+    infoEl.style.display = "none";
 
     if (!email || !password) {
         errEl.textContent = "Inserisci email e password.";
         errEl.style.display = "block";
         return;
+    }
+
+    if (authMode === "register") {
+        infoEl.textContent = "📧 Controlla la tua email per confermare l'account prima di accedere.";
+        infoEl.style.display = "block";
     }
 
     const endpoint = authMode === "login" ? "/auth/login" : "/auth/register";
@@ -538,6 +384,7 @@ async function submitAuth() {
         });
         const data = await res.json();
         if (data.success) {
+            if (authMode === "register") return;
             currentUser = data.user;
             currentToken = data.access_token;
             isGuest = false;
@@ -562,29 +409,35 @@ function usaGuestMode() {
 function avviaApp(email) {
     document.getElementById("auth-screen").style.display = "none";
     document.getElementById("app-screen").classList.add("visible");
-
+    const nome = isGuest ? "Ospite" : (email ? email.split("@")[0] : "Utente");
+    document.getElementById("user-name-badge").textContent = "👤 " + nome;
     if (isGuest) {
-        document.getElementById("user-badge").textContent = "👤 Accedi · Esci";
-        document.getElementById("sidebar").classList.add("hidden");
+        document.getElementById("sidebar").classList.add("collapsed");
+        document.getElementById("sidebar-toggle").style.display = "none";
+        sidebarOpen = false;
     } else {
-        const nome = email ? email.split("@")[0] : "Utente";
-        document.getElementById("user-badge").textContent = `👤 ${nome} · Esci`;
-        document.getElementById("sidebar").classList.remove("hidden");
         caricaChatList();
         nuovaChat();
     }
+    mostraWelcome();
 }
 
 function logout() {
-    currentUser = null;
-    currentToken = null;
-    currentChatId = null;
-    chatHistory = [];
-    isGuest = false;
+    currentUser = null; currentToken = null; currentChatId = null;
+    chatHistory = []; isGuest = false; sidebarOpen = true;
     document.getElementById("app-screen").classList.remove("visible");
     document.getElementById("auth-screen").style.display = "flex";
+    document.getElementById("sidebar").classList.remove("collapsed");
+    document.getElementById("sidebar-toggle").style.display = "";
     document.getElementById("auth-email").value = "";
     document.getElementById("auth-password").value = "";
+}
+
+// ── SIDEBAR ───────────────────────────────────────────────────
+function toggleSidebar() {
+    sidebarOpen = !sidebarOpen;
+    document.getElementById("sidebar").classList.toggle("collapsed", !sidebarOpen);
+    document.getElementById("sidebar-toggle").textContent = sidebarOpen ? "☰" : "☰";
 }
 
 // ── CHAT LIST ─────────────────────────────────────────────────
@@ -605,7 +458,7 @@ function renderChatList(chats) {
     const list = document.getElementById("chat-list");
     list.innerHTML = "";
     if (chats.length === 0) {
-        list.innerHTML = '<div class="sidebar-login-msg">Nessuna chat ancora.</div>';
+        list.innerHTML = '<div class="sidebar-empty">Nessuna chat ancora.</div>';
         return;
     }
     chats.forEach(c => {
@@ -619,9 +472,8 @@ function renderChatList(chats) {
 
 async function nuovaChat() {
     if (!currentToken) return;
-    chatHistory = [];
-    isFirstMessage = true;
-    svuotaChat();
+    chatHistory = []; isFirstMessage = true;
+    mostraWelcome();
     try {
         const res = await fetch(API + "/chats/new", {
             method: "POST",
@@ -637,10 +489,8 @@ async function nuovaChat() {
 }
 
 async function apriChat(chatId) {
-    currentChatId = chatId;
-    chatHistory = [];
-    isFirstMessage = false;
-    svuotaChat();
+    currentChatId = chatId; chatHistory = []; isFirstMessage = false;
+    mostraWelcome();
     try {
         const res = await fetch(API + "/chats/messages", {
             method: "POST",
@@ -651,10 +501,7 @@ async function apriChat(chatId) {
         if (data.success) {
             data.messages.forEach(m => {
                 aggiungiMessaggio(m.content, m.role === "user" ? "user" : "bot");
-                chatHistory.push({
-                    role: m.role === "user" ? "USER" : "CHATBOT",
-                    message: m.content
-                });
+                chatHistory.push({ role: m.role === "user" ? "USER" : "CHATBOT", message: m.content });
             });
         }
     } catch {}
@@ -675,9 +522,8 @@ async function eliminaChat(chatId, e) {
     } catch {}
 }
 
-function svuotaChat() {
-    const chat = document.getElementById("chat");
-    chat.innerHTML = `
+function mostraWelcome() {
+    document.getElementById("chat").innerHTML = `
         <div id="welcome">
             <div class="welcome-orb">J</div>
             <div class="welcome-title">Ciao, sono JadGPT</div>
@@ -692,7 +538,6 @@ function svuotaChat() {
 }
 
 // ── MESSAGGI ──────────────────────────────────────────────────
-const chat = document.getElementById("chat");
 const input = document.getElementById("domanda");
 const sendBtn = document.getElementById("sendBtn");
 
@@ -702,6 +547,7 @@ function usaSuggerimento(btn) {
 }
 
 function aggiungiMessaggio(testo, tipo) {
+    const chatEl = document.getElementById("chat");
     const wrap = document.createElement("div");
     wrap.className = "msg-container " + tipo;
     const row = document.createElement("div");
@@ -714,11 +560,7 @@ function aggiungiMessaggio(testo, tipo) {
     }
     const msg = document.createElement("div");
     msg.className = "msg";
-    if (tipo === "user") {
-        msg.textContent = testo;
-    } else {
-        msg.innerHTML = marked.parse(testo);
-    }
+    msg.innerHTML = tipo === "user" ? escapeHTML(testo) : marked.parse(testo);
     row.appendChild(msg);
     wrap.appendChild(row);
     if (tipo === "bot") {
@@ -735,17 +577,21 @@ function aggiungiMessaggio(testo, tipo) {
     }
     const welcome = document.getElementById("welcome");
     if (welcome) welcome.remove();
-    document.getElementById("chat").appendChild(wrap);
-    document.getElementById("chat").scrollTop = document.getElementById("chat").scrollHeight;
+    chatEl.appendChild(wrap);
+    chatEl.scrollTop = chatEl.scrollHeight;
+}
+
+function escapeHTML(str) {
+    return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 }
 
 function mostraTyping() {
+    const chatEl = document.getElementById("chat");
     const wrap = document.createElement("div");
-    wrap.className = "msg-container bot";
-    wrap.id = "typing";
+    wrap.className = "msg-container bot"; wrap.id = "typing";
     wrap.innerHTML = `<div class="msg-row"><div class="avatar avatar-bot">J</div><div class="msg"><div class="typing"><span></span><span></span><span></span></div></div></div>`;
-    document.getElementById("chat").appendChild(wrap);
-    document.getElementById("chat").scrollTop = document.getElementById("chat").scrollHeight;
+    chatEl.appendChild(wrap);
+    chatEl.scrollTop = chatEl.scrollHeight;
 }
 
 function nascondiTyping() {
@@ -759,19 +605,15 @@ async function rispondi() {
     aggiungiMessaggio(domanda, "user");
     input.value = "";
     mostraTyping();
-
     try {
-        const body = {
-            message: domanda,
-            history: chatHistory,
-            chat_id: currentChatId,
-            access_token: currentToken,
-            is_first_message: isFirstMessage
-        };
         const res = await fetch(API + "/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(body)
+            body: JSON.stringify({
+                message: domanda, history: chatHistory,
+                chat_id: currentChatId, access_token: currentToken,
+                is_first_message: isFirstMessage
+            })
         });
         const data = await res.json();
         nascondiTyping();
@@ -780,7 +622,7 @@ async function rispondi() {
         chatHistory.push({ role: "CHATBOT", message: data.response });
         if (isFirstMessage) {
             isFirstMessage = false;
-            caricaChatList();
+            setTimeout(() => caricaChatList(), 1500);
         }
     } catch {
         nascondiTyping();
@@ -788,11 +630,8 @@ async function rispondi() {
     }
 }
 
-input.addEventListener("keydown", e => {
-    if (e.key === "Enter") { e.preventDefault(); rispondi(); }
-});
+input.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); rispondi(); } });
 sendBtn.addEventListener("click", rispondi);
 </script>
-
 </body>
 </html>
