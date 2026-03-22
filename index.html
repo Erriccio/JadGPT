@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>JadGPT</title>
     <link rel="manifest" href="/manifest.json">
     <script>if('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');</script>
@@ -25,17 +25,19 @@
             --sidebar-width: 260px;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
+        html, body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: var(--bg); color: var(--text);
             height: 100dvh; overflow: hidden;
             display: flex; flex-direction: column;
+            max-width: 100vw;
         }
 
         /* AUTH */
         #auth-screen {
             display: flex; align-items: center; justify-content: center;
             height: 100dvh; background: linear-gradient(135deg, #f0f4ff, #fdf4ff);
+            padding: 20px;
         }
         .auth-box {
             background: white; border-radius: 24px; padding: 40px;
@@ -81,36 +83,24 @@
             font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px;
             transition: all 0.2s; box-shadow: 0 4px 14px rgba(99,102,241,0.3);
         }
-        .auth-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(99,102,241,0.4); }
+        .auth-btn:hover { transform: translateY(-1px); }
         .auth-guest { text-align: center; margin-top: 16px; font-size: 13px; color: var(--text-muted); }
         .auth-guest a { color: var(--primary); cursor: pointer; font-weight: 600; text-decoration: none; }
-        .auth-error {
-            background: #fef2f2; color: #ef4444; border-radius: 10px;
-            padding: 10px 14px; font-size: 13px; margin-bottom: 14px; display: none;
-        }
-        .auth-info {
-            background: #f0f9ff; color: #0284c7; border-radius: 10px;
-            padding: 10px 14px; font-size: 13px; margin-bottom: 14px; display: none;
-        }
+        .auth-error { background: #fef2f2; color: #ef4444; border-radius: 10px; padding: 10px 14px; font-size: 13px; margin-bottom: 14px; display: none; }
+        .auth-info { background: #f0f9ff; color: #0284c7; border-radius: 10px; padding: 10px 14px; font-size: 13px; margin-bottom: 14px; display: none; }
 
         /* APP */
-        #app-screen { display: none; flex: 1; flex-direction: column; overflow: hidden; }
+        #app-screen { display: none; flex: 1; flex-direction: column; overflow: hidden; max-width: 100vw; }
         #app-screen.visible { display: flex; }
 
         /* TOPBAR */
         #topbar {
             height: 60px; background: var(--surface);
             border-bottom: 1px solid var(--border);
-            display: flex; align-items: center; padding: 0 20px; gap: 10px;
+            display: flex; align-items: center; padding: 0 16px; gap: 8px;
             flex-shrink: 0; box-shadow: 0 1px 12px rgba(99,102,241,0.06);
+            overflow: hidden;
         }
-        .btn-sidebar-toggle {
-            width: 36px; height: 36px; border-radius: 10px;
-            border: 1px solid var(--border); background: var(--surface);
-            cursor: pointer; display: flex; align-items: center; justify-content: center;
-            font-size: 18px; transition: all 0.2s; color: var(--text-muted); flex-shrink: 0;
-        }
-        .btn-sidebar-toggle:hover { background: var(--surface2); color: var(--primary); }
         .logo-icon {
             width: 34px; height: 34px; background: var(--user-bubble);
             border-radius: 10px; display: flex; align-items: center; justify-content: center;
@@ -120,9 +110,12 @@
             font-size: 20px; font-weight: 800;
             background: linear-gradient(135deg, var(--primary), #f43f5e);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            flex-shrink: 0;
         }
-        .topbar-actions { margin-left: auto; display: flex; gap: 8px; align-items: center; }
-        .btn-topbar {
+        .topbar-actions { margin-left: auto; display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
+
+        /* Pulsanti topbar desktop */
+        .btn-topbar-desktop {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 13px; font-weight: 600; color: var(--primary);
             text-decoration: none; border: 1.5px solid var(--primary-light);
@@ -130,14 +123,43 @@
             background: rgba(99,102,241,0.05); transition: all 0.2s; cursor: pointer;
             white-space: nowrap;
         }
-        .btn-topbar:hover { background: var(--primary); color: white; border-color: var(--primary); }
-        .btn-topbar.logout { color: #ef4444; border-color: #fca5a5; background: #fef2f2; }
-        .btn-topbar.logout:hover { background: #ef4444; color: white; border-color: #ef4444; }
+        .btn-topbar-desktop:hover { background: var(--primary); color: white; border-color: var(--primary); }
+        .btn-topbar-desktop.logout { color: #ef4444; border-color: #fca5a5; background: #fef2f2; }
+        .btn-topbar-desktop.logout:hover { background: #ef4444; color: white; border-color: #ef4444; }
+
+        /* Pulsanti topbar mobile — solo emoji in cerchio */
+        .btn-circle {
+            width: 36px; height: 36px; border-radius: 50%;
+            border: 1.5px solid var(--border); background: var(--surface);
+            cursor: pointer; display: none; align-items: center; justify-content: center;
+            font-size: 17px; transition: all 0.2s; flex-shrink: 0;
+            text-decoration: none;
+        }
+        .btn-circle:hover { background: var(--surface2); }
+        .btn-circle.logout-circle { border-color: #fca5a5; background: #fef2f2; }
+        .btn-circle.sidebar-circle { border-color: var(--primary-light); background: rgba(99,102,241,0.05); }
+
+        .btn-sidebar-toggle {
+            width: 36px; height: 36px; border-radius: 10px;
+            border: 1px solid var(--border); background: var(--surface);
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            font-size: 18px; transition: all 0.2s; color: var(--text-muted); flex-shrink: 0;
+        }
+        .btn-sidebar-toggle:hover { background: var(--surface2); color: var(--primary); }
+
+        @media (max-width: 600px) {
+            .btn-topbar-desktop { display: none; }
+            .btn-circle { display: flex; }
+            .btn-sidebar-toggle { display: none; }
+        }
+        @media (min-width: 601px) {
+            .btn-circle { display: none; }
+        }
 
         /* MAIN LAYOUT */
-        #main { display: flex; flex: 1; overflow: hidden; }
+        #main { display: flex; flex: 1; overflow: hidden; max-width: 100vw; }
 
-        /* SIDEBAR */
+        /* SIDEBAR DESKTOP */
         #sidebar {
             width: var(--sidebar-width); background: var(--surface);
             border-right: 1px solid var(--border);
@@ -145,6 +167,34 @@
             overflow: hidden; transition: width 0.25s ease, opacity 0.25s ease;
         }
         #sidebar.collapsed { width: 0; opacity: 0; pointer-events: none; }
+
+        /* SIDEBAR MOBILE — drawer dal basso */
+        #sidebar-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.4); z-index: 100;
+        }
+        #sidebar-overlay.visible { display: block; }
+        #sidebar-mobile {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: var(--surface); border-radius: 20px 20px 0 0;
+            z-index: 101; padding: 16px;
+            max-height: 70dvh; display: flex; flex-direction: column;
+            transform: translateY(100%); transition: transform 0.3s ease;
+        }
+        #sidebar-mobile.visible { transform: translateY(0); }
+        .mobile-drawer-handle {
+            width: 40px; height: 4px; background: var(--border);
+            border-radius: 2px; margin: 0 auto 16px;
+        }
+        .mobile-new-chat-btn {
+            width: 100%; padding: 12px; border-radius: 12px;
+            border: 1.5px dashed var(--primary-light);
+            background: rgba(99,102,241,0.04); color: var(--primary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px; font-weight: 600; cursor: pointer; margin-bottom: 12px;
+        }
+        #mobile-chat-list { flex: 1; overflow-y: auto; }
+
         .sidebar-header { padding: 16px; border-bottom: 1px solid var(--border); }
         .new-chat-btn {
             width: 100%; padding: 10px; border-radius: 12px;
@@ -152,7 +202,6 @@
             background: rgba(99,102,241,0.04); color: var(--primary);
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s;
-            white-space: nowrap;
         }
         .new-chat-btn:hover { background: rgba(99,102,241,0.1); }
         #chat-list { flex: 1; overflow-y: auto; padding: 8px; }
@@ -162,20 +211,24 @@
             padding: 10px 12px; border-radius: 10px; cursor: pointer;
             font-size: 13px; font-weight: 500; color: var(--text);
             display: flex; align-items: center; justify-content: space-between;
-            gap: 8px; transition: background 0.15s; margin-bottom: 2px; white-space: nowrap;
+            gap: 8px; transition: background 0.15s; margin-bottom: 2px;
         }
         .chat-item:hover { background: var(--surface2); }
         .chat-item.active { background: rgba(99,102,241,0.08); color: var(--primary); font-weight: 600; }
-        .chat-item-title { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+        .chat-item-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .chat-delete { opacity: 0; font-size: 14px; cursor: pointer; padding: 2px 4px; border-radius: 6px; transition: all 0.15s; }
         .chat-item:hover .chat-delete { opacity: 1; }
         .chat-delete:hover { background: #fef2f2; color: #ef4444; }
         .sidebar-empty { padding: 16px; font-size: 13px; color: var(--text-muted); text-align: center; }
 
+        @media (max-width: 600px) {
+            #sidebar { display: none; }
+        }
+
         /* CHAT AREA */
-        #chat-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+        #chat-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
         #chat {
-            flex: 1; overflow-y: auto; padding: 24px;
+            flex: 1; overflow-y: auto; overflow-x: hidden; padding: 20px;
             display: flex; flex-direction: column; gap: 16px;
         }
         #chat::-webkit-scrollbar { width: 4px; }
@@ -185,37 +238,41 @@
         #welcome {
             display: flex; flex-direction: column;
             align-items: center; justify-content: center;
-            flex: 1; padding: 40px 20px; text-align: center; gap: 16px;
+            flex: 1; padding: 30px 16px; text-align: center; gap: 14px;
         }
         .welcome-orb {
-            width: 80px; height: 80px; border-radius: 24px;
+            width: 72px; height: 72px; border-radius: 22px;
             background: var(--user-bubble);
             display: flex; align-items: center; justify-content: center;
-            font-size: 36px; font-weight: 800; color: white;
+            font-size: 32px; font-weight: 800; color: white;
             box-shadow: 0 12px 40px rgba(99,102,241,0.35);
             animation: float 3s ease-in-out infinite;
         }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
         .welcome-title {
-            font-size: 28px; font-weight: 800;
+            font-size: 24px; font-weight: 800;
             background: linear-gradient(135deg, var(--primary), #f43f5e);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         }
-        .welcome-subtitle { font-size: 15px; color: var(--text-muted); font-weight: 500; }
-        .suggestions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; max-width: 520px; margin-top: 8px; }
+        .welcome-subtitle { font-size: 14px; color: var(--text-muted); font-weight: 500; }
+        .suggestions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 480px; margin-top: 6px; }
         .suggestion-btn {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            padding: 10px 16px; border-radius: 14px; border: 1.5px solid var(--border);
+            padding: 9px 14px; border-radius: 14px; border: 1.5px solid var(--border);
             background: var(--surface); color: var(--text); font-size: 13px; font-weight: 500;
             cursor: pointer; transition: all 0.2s; text-align: left;
         }
-        .suggestion-btn:hover { border-color: var(--primary-light); background: rgba(99,102,241,0.05); color: var(--primary); transform: translateY(-2px); }
+        .suggestion-btn:hover { border-color: var(--primary-light); background: rgba(99,102,241,0.05); color: var(--primary); }
 
         /* MESSAGGI */
-        .msg-container { display: flex; flex-direction: column; gap: 4px; animation: msgIn 0.25s ease; }
+        .msg-container { display: flex; flex-direction: column; gap: 4px; animation: msgIn 0.25s ease; max-width: 100%; }
         @keyframes msgIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .msg-row { display: flex; align-items: flex-end; gap: 8px; }
-        .msg { padding: 12px 16px; border-radius: var(--radius); max-width: 72%; font-size: 15px; line-height: 1.65; }
+        .msg {
+            padding: 12px 15px; border-radius: var(--radius);
+            max-width: min(72%, calc(100vw - 80px));
+            font-size: 15px; line-height: 1.65; word-break: break-word;
+        }
         .user .msg-row { justify-content: flex-end; }
         .user .msg { background: var(--user-bubble); color: white; border-bottom-right-radius: 4px; }
         .bot .msg-row { justify-content: flex-start; }
@@ -225,7 +282,7 @@
         .bot .msg ul, .bot .msg ol { margin: 6px 0; padding-left: 20px; }
         .bot .msg li { margin-bottom: 4px; }
         .bot .msg code { background: rgba(99,102,241,0.12); color: var(--primary-dark); padding: 2px 6px; border-radius: 6px; font-family: monospace; font-size: 13px; }
-        .bot .msg pre { background: #1e1e2e; color: #cdd6f4; padding: 14px; border-radius: 12px; overflow-x: auto; font-size: 13px; margin: 8px 0; }
+        .bot .msg pre { background: #1e1e2e; color: #cdd6f4; padding: 14px; border-radius: 12px; overflow-x: auto; font-size: 13px; margin: 8px 0; max-width: 100%; }
         .bot .msg pre code { background: transparent; color: inherit; padding: 0; }
         .copy-btn {
             background: none; border: none; cursor: pointer; color: var(--text-muted);
@@ -238,11 +295,11 @@
 
         /* INPUT */
         #input-area {
-            padding: 16px 24px; background: var(--surface);
+            padding: 12px 16px; background: var(--surface);
             border-top: 1px solid var(--border); display: flex; gap: 10px; align-items: center;
         }
         #domanda {
-            flex: 1; padding: 13px 18px; border-radius: 16px;
+            flex: 1; min-width: 0; padding: 12px 16px; border-radius: 16px;
             border: 1.5px solid var(--border); font-size: 15px;
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: var(--surface2); color: var(--text); outline: none;
@@ -251,12 +308,12 @@
         #domanda:focus { border-color: var(--primary-light); box-shadow: 0 0 0 3px rgba(99,102,241,0.1); background: white; }
         #domanda::placeholder { color: var(--text-muted); }
         #sendBtn {
-            width: 46px; height: 46px; border-radius: 14px; border: none;
+            width: 44px; height: 44px; border-radius: 14px; border: none;
             background: var(--user-bubble); color: white; cursor: pointer; font-size: 18px;
             display: flex; align-items: center; justify-content: center;
             transition: all 0.2s; box-shadow: 0 4px 14px rgba(99,102,241,0.3); flex-shrink: 0;
         }
-        #sendBtn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(99,102,241,0.4); }
+        #sendBtn:hover { transform: scale(1.05); }
 
         /* TYPING */
         .typing { display: flex; gap: 4px; align-items: center; padding: 4px 0; }
@@ -266,16 +323,14 @@
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
 
         /* FOOTER */
-        #footer { text-align: center; padding: 6px; font-size: 11px; color: var(--text-muted); background: var(--surface); }
+        #footer { text-align: center; padding: 5px; font-size: 11px; color: var(--text-muted); background: var(--surface); }
         #footer a { color: var(--text-muted); text-decoration: none; }
         #footer a:hover { color: var(--primary); }
-
-        @media (max-width: 600px) { #sidebar { display: none !important; } .btn-sidebar-toggle { display: none; } }
     </style>
 </head>
 <body>
 
-<!-- AUTH SCREEN -->
+<!-- AUTH -->
 <div id="auth-screen">
     <div class="auth-box">
         <div class="auth-logo">
@@ -288,40 +343,42 @@
         </div>
         <div class="auth-error" id="auth-error"></div>
         <div class="auth-info" id="auth-info"></div>
-        <div class="auth-field">
-            <label>Email</label>
-            <input type="email" id="auth-email" placeholder="tua@email.com">
-        </div>
-        <div class="auth-field">
-            <label>Password</label>
-            <input type="password" id="auth-password" placeholder="••••••••">
-        </div>
+        <div class="auth-field"><label>Email</label><input type="email" id="auth-email" placeholder="tua@email.com"></div>
+        <div class="auth-field"><label>Password</label><input type="password" id="auth-password" placeholder="••••••••"></div>
         <button class="auth-btn" id="auth-submit" onclick="submitAuth()">Accedi</button>
         <div class="auth-guest">oppure <a onclick="usaGuestMode()">continua senza account</a></div>
     </div>
 </div>
 
-<!-- APP SCREEN -->
+<!-- APP -->
 <div id="app-screen">
     <div id="topbar">
-        <button class="btn-sidebar-toggle" id="sidebar-toggle" onclick="toggleSidebar()" title="Apri/chiudi menu">☰</button>
+        <!-- Desktop: tasto sidebar -->
+        <button class="btn-sidebar-toggle" onclick="toggleSidebar()">☰</button>
+        <!-- Mobile: tasto cronologia (cerchio) -->
+        <button class="btn-circle sidebar-circle" onclick="apriMobileSidebar()" title="Cronologia">📋</button>
+
         <div class="logo-icon">J</div>
         <span class="logo-text">JadGPT</span>
+
         <div class="topbar-actions">
-            <a href="https://forms.gle/5jTRZ7rSTChD8XBB8" target="_blank" class="btn-topbar">💬 Suggerisci</a>
-            <span class="btn-topbar" id="user-name-badge"></span>
-            <button class="btn-topbar logout" onclick="logout()">🚪 Esci</button>
+            <!-- Desktop -->
+            <a href="https://forms.gle/5jTRZ7rSTChD8XBB8" target="_blank" class="btn-topbar-desktop">💬 Suggerisci</a>
+            <span class="btn-topbar-desktop" id="user-name-badge"></span>
+            <button class="btn-topbar-desktop logout" onclick="logout()">🚪 Esci</button>
+            <!-- Mobile -->
+            <a href="https://forms.gle/5jTRZ7rSTChD8XBB8" target="_blank" class="btn-circle" title="Suggerisci">💬</a>
+            <button class="btn-circle logout-circle" onclick="logout()" title="Esci">🚪</button>
         </div>
     </div>
 
     <div id="main">
+        <!-- Sidebar desktop -->
         <div id="sidebar">
             <div class="sidebar-header">
                 <button class="new-chat-btn" onclick="nuovaChat()">＋ Nuova chat</button>
             </div>
-            <div id="chat-list">
-                <div class="sidebar-empty" id="sidebar-msg">Nessuna chat ancora.</div>
-            </div>
+            <div id="chat-list"><div class="sidebar-empty">Nessuna chat ancora.</div></div>
         </div>
 
         <div id="chat-area">
@@ -337,6 +394,14 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- Mobile sidebar overlay -->
+<div id="sidebar-overlay" onclick="chiudiMobileSidebar()"></div>
+<div id="sidebar-mobile">
+    <div class="mobile-drawer-handle"></div>
+    <button class="mobile-new-chat-btn" onclick="nuovaChat(); chiudiMobileSidebar();">＋ Nuova chat</button>
+    <div id="mobile-chat-list"><div class="sidebar-empty">Nessuna chat ancora.</div></div>
 </div>
 
 <script>
@@ -361,48 +426,23 @@ async function submitAuth() {
     const password = document.getElementById("auth-password").value;
     const errEl = document.getElementById("auth-error");
     const infoEl = document.getElementById("auth-info");
-    errEl.style.display = "none";
-    infoEl.style.display = "none";
-
-    if (!email || !password) {
-        errEl.textContent = "Inserisci email e password.";
-        errEl.style.display = "block";
-        return;
-    }
-
-    if (authMode === "register") {
-        infoEl.textContent = "📧 Controlla la tua email per confermare l'account prima di accedere.";
-        infoEl.style.display = "block";
-    }
-
+    errEl.style.display = "none"; infoEl.style.display = "none";
+    if (!email || !password) { errEl.textContent = "Inserisci email e password."; errEl.style.display = "block"; return; }
+    if (authMode === "register") { infoEl.textContent = "📧 Controlla la tua email per confermare l'account prima di accedere."; infoEl.style.display = "block"; }
     const endpoint = authMode === "login" ? "/auth/login" : "/auth/register";
     try {
-        const res = await fetch(API + endpoint, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password })
-        });
+        const res = await fetch(API + endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, password }) });
         const data = await res.json();
         if (data.success) {
             if (authMode === "register") return;
-            currentUser = data.user;
-            currentToken = data.access_token;
-            isGuest = false;
+            currentUser = data.user; currentToken = data.access_token; isGuest = false;
             avviaApp(email);
-        } else {
-            errEl.textContent = data.error || "Errore. Riprova.";
-            errEl.style.display = "block";
-        }
-    } catch {
-        errEl.textContent = "Errore di connessione.";
-        errEl.style.display = "block";
-    }
+        } else { errEl.textContent = data.error || "Errore. Riprova."; errEl.style.display = "block"; }
+    } catch { errEl.textContent = "Errore di connessione."; errEl.style.display = "block"; }
 }
 
 function usaGuestMode() {
-    isGuest = true;
-    currentUser = null;
-    currentToken = null;
+    isGuest = true; currentUser = null; currentToken = null;
     avviaApp(null);
 }
 
@@ -410,10 +450,10 @@ function avviaApp(email) {
     document.getElementById("auth-screen").style.display = "none";
     document.getElementById("app-screen").classList.add("visible");
     const nome = isGuest ? "Ospite" : (email ? email.split("@")[0] : "Utente");
-    document.getElementById("user-name-badge").textContent = "👤 " + nome;
+    const badge = document.getElementById("user-name-badge");
+    if (badge) badge.textContent = "👤 " + nome;
     if (isGuest) {
         document.getElementById("sidebar").classList.add("collapsed");
-        document.getElementById("sidebar-toggle").style.display = "none";
         sidebarOpen = false;
     } else {
         caricaChatList();
@@ -428,7 +468,6 @@ function logout() {
     document.getElementById("app-screen").classList.remove("visible");
     document.getElementById("auth-screen").style.display = "flex";
     document.getElementById("sidebar").classList.remove("collapsed");
-    document.getElementById("sidebar-toggle").style.display = "";
     document.getElementById("auth-email").value = "";
     document.getElementById("auth-password").value = "";
 }
@@ -437,66 +476,55 @@ function logout() {
 function toggleSidebar() {
     sidebarOpen = !sidebarOpen;
     document.getElementById("sidebar").classList.toggle("collapsed", !sidebarOpen);
-    document.getElementById("sidebar-toggle").textContent = sidebarOpen ? "☰" : "☰";
+}
+
+function apriMobileSidebar() {
+    document.getElementById("sidebar-overlay").classList.add("visible");
+    document.getElementById("sidebar-mobile").classList.add("visible");
+}
+
+function chiudiMobileSidebar() {
+    document.getElementById("sidebar-overlay").classList.remove("visible");
+    document.getElementById("sidebar-mobile").classList.remove("visible");
 }
 
 // ── CHAT LIST ─────────────────────────────────────────────────
 async function caricaChatList() {
     if (!currentToken) return;
     try {
-        const res = await fetch(API + "/chats", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ access_token: currentToken, user_id: currentUser })
-        });
+        const res = await fetch(API + "/chats", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ access_token: currentToken, user_id: currentUser }) });
         const data = await res.json();
-        if (data.success) renderChatList(data.chats);
+        if (data.success) { renderChatList(data.chats, "chat-list"); renderChatList(data.chats, "mobile-chat-list"); }
     } catch {}
 }
 
-function renderChatList(chats) {
-    const list = document.getElementById("chat-list");
+function renderChatList(chats, containerId) {
+    const list = document.getElementById(containerId);
     list.innerHTML = "";
-    if (chats.length === 0) {
-        list.innerHTML = '<div class="sidebar-empty">Nessuna chat ancora.</div>';
-        return;
-    }
+    if (chats.length === 0) { list.innerHTML = '<div class="sidebar-empty">Nessuna chat ancora.</div>'; return; }
     chats.forEach(c => {
         const item = document.createElement("div");
         item.className = "chat-item" + (c.id === currentChatId ? " active" : "");
         item.innerHTML = `<span class="chat-item-title">${c.title}</span><span class="chat-delete" onclick="eliminaChat('${c.id}', event)">🗑️</span>`;
-        item.onclick = () => apriChat(c.id);
+        item.onclick = () => { apriChat(c.id); chiudiMobileSidebar(); };
         list.appendChild(item);
     });
 }
 
 async function nuovaChat() {
     if (!currentToken) return;
-    chatHistory = []; isFirstMessage = true;
-    mostraWelcome();
+    chatHistory = []; isFirstMessage = true; mostraWelcome();
     try {
-        const res = await fetch(API + "/chats/new", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ access_token: currentToken, user_id: currentUser })
-        });
+        const res = await fetch(API + "/chats/new", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ access_token: currentToken, user_id: currentUser }) });
         const data = await res.json();
-        if (data.success) {
-            currentChatId = data.chat_id;
-            caricaChatList();
-        }
+        if (data.success) { currentChatId = data.chat_id; caricaChatList(); }
     } catch {}
 }
 
 async function apriChat(chatId) {
-    currentChatId = chatId; chatHistory = []; isFirstMessage = false;
-    mostraWelcome();
+    currentChatId = chatId; chatHistory = []; isFirstMessage = false; mostraWelcome();
     try {
-        const res = await fetch(API + "/chats/messages", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ access_token: currentToken, chat_id: chatId })
-        });
+        const res = await fetch(API + "/chats/messages", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ access_token: currentToken, chat_id: chatId }) });
         const data = await res.json();
         if (data.success) {
             data.messages.forEach(m => {
@@ -512,13 +540,8 @@ async function eliminaChat(chatId, e) {
     e.stopPropagation();
     if (!confirm("Eliminare questa chat?")) return;
     try {
-        await fetch(API + "/chats/delete", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ access_token: currentToken, chat_id: chatId })
-        });
-        if (chatId === currentChatId) nuovaChat();
-        else caricaChatList();
+        await fetch(API + "/chats/delete", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ access_token: currentToken, chat_id: chatId }) });
+        if (chatId === currentChatId) nuovaChat(); else caricaChatList();
     } catch {}
 }
 
@@ -541,10 +564,7 @@ function mostraWelcome() {
 const input = document.getElementById("domanda");
 const sendBtn = document.getElementById("sendBtn");
 
-function usaSuggerimento(btn) {
-    input.value = btn.textContent.slice(2).trim();
-    rispondi();
-}
+function usaSuggerimento(btn) { input.value = btn.textContent.slice(2).trim(); rispondi(); }
 
 function aggiungiMessaggio(testo, tipo) {
     const chatEl = document.getElementById("chat");
@@ -554,25 +574,17 @@ function aggiungiMessaggio(testo, tipo) {
     row.className = "msg-row";
     if (tipo === "bot") {
         const avatar = document.createElement("div");
-        avatar.className = "avatar avatar-bot";
-        avatar.textContent = "J";
+        avatar.className = "avatar avatar-bot"; avatar.textContent = "J";
         row.appendChild(avatar);
     }
     const msg = document.createElement("div");
     msg.className = "msg";
     msg.innerHTML = tipo === "user" ? escapeHTML(testo) : marked.parse(testo);
-    row.appendChild(msg);
-    wrap.appendChild(row);
+    row.appendChild(msg); wrap.appendChild(row);
     if (tipo === "bot") {
         const copyBtn = document.createElement("button");
-        copyBtn.className = "copy-btn";
-        copyBtn.textContent = "📋 Copia risposta";
-        copyBtn.onclick = () => {
-            navigator.clipboard.writeText(testo).then(() => {
-                copyBtn.textContent = "✅ Copiato!";
-                setTimeout(() => { copyBtn.textContent = "📋 Copia risposta"; }, 2000);
-            });
-        };
+        copyBtn.className = "copy-btn"; copyBtn.textContent = "📋 Copia risposta";
+        copyBtn.onclick = () => { navigator.clipboard.writeText(testo).then(() => { copyBtn.textContent = "✅ Copiato!"; setTimeout(() => { copyBtn.textContent = "📋 Copia risposta"; }, 2000); }); };
         wrap.appendChild(copyBtn);
     }
     const welcome = document.getElementById("welcome");
@@ -581,53 +593,33 @@ function aggiungiMessaggio(testo, tipo) {
     chatEl.scrollTop = chatEl.scrollHeight;
 }
 
-function escapeHTML(str) {
-    return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-}
+function escapeHTML(str) { return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 
 function mostraTyping() {
     const chatEl = document.getElementById("chat");
     const wrap = document.createElement("div");
     wrap.className = "msg-container bot"; wrap.id = "typing";
     wrap.innerHTML = `<div class="msg-row"><div class="avatar avatar-bot">J</div><div class="msg"><div class="typing"><span></span><span></span><span></span></div></div></div>`;
-    chatEl.appendChild(wrap);
-    chatEl.scrollTop = chatEl.scrollHeight;
+    chatEl.appendChild(wrap); chatEl.scrollTop = chatEl.scrollHeight;
 }
 
-function nascondiTyping() {
-    const t = document.getElementById("typing");
-    if (t) t.remove();
-}
+function nascondiTyping() { const t = document.getElementById("typing"); if (t) t.remove(); }
 
 async function rispondi() {
     const domanda = input.value.trim();
     if (domanda === "") return;
-    aggiungiMessaggio(domanda, "user");
-    input.value = "";
-    mostraTyping();
+    aggiungiMessaggio(domanda, "user"); input.value = ""; mostraTyping();
     try {
         const res = await fetch(API + "/chat", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                message: domanda, history: chatHistory,
-                chat_id: currentChatId, access_token: currentToken,
-                is_first_message: isFirstMessage
-            })
+            method: "POST", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: domanda, history: chatHistory, chat_id: currentChatId, access_token: currentToken, is_first_message: isFirstMessage })
         });
         const data = await res.json();
-        nascondiTyping();
-        aggiungiMessaggio(data.response, "bot");
+        nascondiTyping(); aggiungiMessaggio(data.response, "bot");
         chatHistory.push({ role: "USER", message: domanda });
         chatHistory.push({ role: "CHATBOT", message: data.response });
-        if (isFirstMessage) {
-            isFirstMessage = false;
-            setTimeout(() => caricaChatList(), 1500);
-        }
-    } catch {
-        nascondiTyping();
-        aggiungiMessaggio("Ops, qui c'è qualcosa che non va", "bot");
-    }
+        if (isFirstMessage) { isFirstMessage = false; setTimeout(() => caricaChatList(), 1500); }
+    } catch { nascondiTyping(); aggiungiMessaggio("Ops, qui c'è qualcosa che non va", "bot"); }
 }
 
 input.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); rispondi(); } });
