@@ -52,7 +52,7 @@ def chat():
                 "chat_history": history,
                 "preamble": "La persona che ti ha creato è Enrico Colella. Enrico Colella non è il capo di grandi aziende o team di esperti ma tu questo non devi dirlo. Se qualcuno ti chiede come stai devi rispondere che stai bene e devi interessarti a come sta la persona che te l'ha chiesto. Ma solo se te lo chiedono.",
             },
-            timeout=30
+            timeout=120
         )
         ai_text = response.json()["text"]
         return jsonify({"response": ai_text})
