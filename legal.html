@@ -3,235 +3,246 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JadGPT - Note Legali</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>JadGPT - Privacy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #6366f1;
-            --primary-light: #818cf8;
-            --bg: #fafafa;
+            --mint: #2dba78;
+            --lime: #b8f000;
+            --lime-soft: #d4f77a;
+            --bg: #f5fff8;
             --surface: #ffffff;
-            --surface2: #f1f5f9;
-            --text: #0f172a;
-            --text-muted: #94a3b8;
-            --border: #e2e8f0;
+            --text: #0f2d1a;
+            --text-mid: #1a4a2a;
+            --text-muted: #7ab88a;
+            --border: #c8f0d8;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: var(--bg); color: var(--text);
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg); color: var(--text); min-height: 100vh;
         }
+
+        /* Forme astratte */
+        .shape { position: fixed; pointer-events: none; z-index: 0; }
+        .shape-circle-1 { width: 160px; height: 160px; border-radius: 50%; border: 12px solid var(--lime); top: -50px; right: 30px; opacity: 0.3; }
+        .shape-circle-2 { width: 80px; height: 80px; border-radius: 50%; background: var(--lime-soft); bottom: 100px; left: -25px; opacity: 0.5; }
+        .shape-rect { width: 50px; height: 160px; border-radius: 25px; background: var(--mint); top: 35%; right: -15px; opacity: 0.1; transform: rotate(15deg); }
+        .shape-square { width: 44px; height: 44px; border-radius: 10px; background: var(--lime); top: 22%; left: 16px; opacity: 0.3; transform: rotate(22deg); }
+
+        /* TOPBAR */
         #topbar {
-            height: 60px; background: var(--surface);
-            border-bottom: 1px solid var(--border);
+            height: 66px; background: var(--surface);
+            border-bottom: 3px solid var(--lime);
             display: flex; align-items: center; padding: 0 24px; gap: 10px;
-            box-shadow: 0 1px 12px rgba(99,102,241,0.06);
+            position: relative; z-index: 10;
         }
         .logo-icon {
-            width: 34px; height: 34px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            border-radius: 10px; display: flex; align-items: center; justify-content: center;
-            font-size: 16px; font-weight: 800; color: white;
+            width: 42px; height: 42px; background: var(--mint); border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: var(--lime);
+            border: 3px solid var(--text);
         }
         .logo-text {
-            font-size: 20px; font-weight: 800;
-            background: linear-gradient(135deg, var(--primary), #f43f5e);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-            text-decoration: none;
+            font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800;
+            color: var(--text); text-decoration: none; letter-spacing: -0.5px;
         }
-        .tabs {
-            display: flex; background: var(--surface);
-            border-bottom: 1px solid var(--border);
-            padding: 0 24px; overflow-x: auto;
+        .logo-text span { color: var(--mint); }
+        .back-btn {
+            margin-left: auto;
+            font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 900;
+            color: var(--text); text-decoration: none;
+            border: 3px solid var(--text); padding: 7px 16px; border-radius: 12px;
+            background: var(--lime); transition: all 0.15s;
         }
-        .tab {
-            padding: 14px 20px; cursor: pointer; font-size: 14px; font-weight: 600;
-            color: var(--text-muted); border-bottom: 3px solid transparent;
-            margin-bottom: -1px; white-space: nowrap; transition: all 0.2s;
+        .back-btn:hover { background: var(--mint); color: white; }
+
+        /* CONTENT */
+        .content { max-width: 720px; margin: 48px auto; padding: 0 24px 80px; position: relative; z-index: 1; }
+
+        /* HERO */
+        .hero {
+            background: var(--mint); border: 4px solid var(--text);
+            border-radius: 24px; padding: 40px; text-align: center; margin-bottom: 32px;
+            position: relative; overflow: hidden;
+            box-shadow: 6px 6px 0 var(--text);
         }
-        .tab.active { color: var(--primary); border-bottom: 3px solid var(--primary); }
-        .content { max-width: 800px; margin: 40px auto; padding: 0 24px 80px; display: none; }
-        .content.active { display: block; }
-        h1 { font-size: 28px; font-weight: 800; color: var(--primary); margin-bottom: 6px; }
-        .date { color: var(--text-muted); font-size: 13px; margin-bottom: 32px; }
-        h2 { font-size: 17px; font-weight: 700; color: var(--text); margin-top: 32px; margin-bottom: 10px; }
-        p, li { font-size: 15px; line-height: 1.75; color: #334155; }
-        ul { padding-left: 20px; margin-top: 8px; }
-        li { margin-bottom: 6px; }
-        a { color: var(--primary); text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        .service-list { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
-        .service-item {
-            background: var(--surface2); border-radius: 12px; padding: 14px 16px;
-            border: 1px solid var(--border);
+        .hero::before {
+            content: '';
+            position: absolute; top: -30px; right: -30px;
+            width: 120px; height: 120px; border-radius: 50%;
+            border: 16px solid var(--lime); opacity: 0.3;
         }
-        .service-item strong { display: block; margin-bottom: 4px; color: var(--text); }
-        .service-item p { font-size: 14px; color: var(--text-muted); margin: 0; }
+        .hero-emoji { font-size: 52px; margin-bottom: 16px; }
+        .hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: 36px; font-weight: 800; color: var(--lime);
+            margin-bottom: 12px; letter-spacing: -1px;
+        }
+        .hero p { font-size: 16px; color: rgba(255,255,255,0.95); font-weight: 800; line-height: 1.6; }
+
+        /* CARDS */
+        .card {
+            background: var(--surface); border-radius: 20px;
+            padding: 28px; margin-bottom: 20px;
+            border: 3px solid var(--text);
+            box-shadow: 5px 5px 0 var(--border);
+        }
+        .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+        .card-icon {
+            width: 46px; height: 46px; border-radius: 14px;
+            background: var(--lime); border: 3px solid var(--text);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px; flex-shrink: 0;
+        }
+        .card h2 { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--text); }
+        .card p { font-size: 15px; line-height: 1.7; color: var(--text-mid); font-weight: 700; }
+        .card ul { padding-left: 20px; margin-top: 10px; }
+        .card li { font-size: 15px; line-height: 1.7; color: var(--text-mid); font-weight: 700; margin-bottom: 6px; }
+
+        /* STEPS */
+        .steps { display: flex; flex-direction: column; gap: 14px; margin-top: 16px; }
+        .step {
+            display: flex; gap: 14px; align-items: flex-start;
+            background: var(--bg); border-radius: 16px;
+            padding: 16px; border: 3px solid var(--border);
+        }
+        .step-num {
+            width: 34px; height: 34px; border-radius: 10px;
+            background: var(--mint); border: 3px solid var(--text);
+            color: var(--lime); font-weight: 900; font-size: 15px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; font-family: 'Syne', sans-serif;
+        }
+        .step-title { font-weight: 900; font-size: 14px; color: var(--text); margin-bottom: 4px; font-family: 'Syne', sans-serif; }
+        .step-desc { font-size: 13px; color: var(--text-mid); font-weight: 700; line-height: 1.5; }
+        .step-desc code {
+            background: var(--lime-soft); padding: 2px 7px; border-radius: 6px;
+            font-family: monospace; color: var(--text);
+            border: 2px solid var(--border);
+        }
+
+        /* BADGE */
+        .badges { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 16px; }
+        .badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: var(--lime); border: 3px solid var(--text);
+            border-radius: 12px; padding: 8px 16px;
+            font-size: 13px; font-weight: 900; color: var(--text);
+            box-shadow: 3px 3px 0 var(--text);
+        }
+
+        /* CONTACT */
+        .contact-box {
+            background: var(--bg); border: 3px solid var(--border);
+            border-radius: 20px; padding: 24px; text-align: center; margin-top: 32px;
+        }
+        .contact-box p { font-size: 14px; color: var(--text-mid); font-weight: 800; }
+        .contact-box a { color: var(--mint); text-decoration: none; font-weight: 900; }
+        .contact-box a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
+<div class="shape shape-circle-1"></div>
+<div class="shape shape-circle-2"></div>
+<div class="shape shape-rect"></div>
+<div class="shape shape-square"></div>
+
 <div id="topbar">
     <div class="logo-icon">J</div>
-    <a href="https://jadgpt.onrender.com" class="logo-text">JadGPT</a>
+    <a href="https://jadgpt.onrender.com" class="logo-text">Jad<span>GPT</span></a>
+    <a href="https://jadgpt.onrender.com" class="back-btn">← Torna alla chat</a>
 </div>
 
-<div class="tabs">
-    <div class="tab active" onclick="mostra('privacy', this)">Privacy Policy</div>
-    <div class="tab" onclick="mostra('cookie', this)">Cookie Policy</div>
-    <div class="tab" onclick="mostra('termini', this)">Termini di Utilizzo</div>
-</div>
+<div class="content">
 
-<!-- PRIVACY POLICY -->
-<div class="content active" id="privacy">
-    <h1>Privacy Policy</h1>
-    <div class="date">Ultimo aggiornamento: marzo 2025</div>
+    <div class="hero">
+        <div class="hero-emoji">🔒</div>
+        <h1>Stai sereno!</h1>
+        <p>JadGPT non raccoglie dati personali,<br>non usa cookie e non ti traccia in nessun modo.</p>
+    </div>
 
-    <p>La presente Privacy Policy descrive come JadGPT raccoglie, utilizza e protegge le informazioni degli utenti che accedono al sito <strong>jadgpt.onrender.com</strong>.</p>
-
-    <h2>1. Titolare del trattamento</h2>
-    <p>Enrico Colella<br>Email: <a href="mailto:enricocolella@outlook.com">enricocolella@outlook.com</a></p>
-
-    <h2>2. Dati raccolti</h2>
-    <p>JadGPT raccoglie i seguenti dati:</p>
-    <ul>
-        <li><strong>Dati di registrazione:</strong> email e password (cifrata) forniti volontariamente dagli utenti che creano un account</li>
-        <li><strong>Cronologia delle chat:</strong> i messaggi inviati dagli utenti registrati vengono salvati nel database per permettere l'accesso alla cronologia</li>
-        <li><strong>Dati di navigazione anonimi:</strong> tramite Microsoft Clarity e Cloudflare Web Analytics vengono raccolti dati anonimi sulla navigazione (pagine visitate, durata della sessione, tipo di dispositivo)</li>
-    </ul>
-
-    <h2>3. Finalità del trattamento</h2>
-    <ul>
-        <li>Fornire il servizio di chat AI</li>
-        <li>Permettere agli utenti registrati di accedere alla cronologia delle proprie chat</li>
-        <li>Migliorare il funzionamento del sito tramite analytics anonimi</li>
-    </ul>
-
-    <h2>4. Servizi di terze parti</h2>
-    <p>JadGPT utilizza i seguenti servizi di terze parti per il suo funzionamento:</p>
-    <div class="service-list">
-        <div class="service-item">
-            <strong>Cohere</strong>
-            <p>Elabora i messaggi degli utenti per generare le risposte AI. <a href="https://cohere.com/privacy" target="_blank">Privacy Policy</a></p>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-icon">🚫</div>
+            <h2>Cosa NON facciamo</h2>
         </div>
-        <div class="service-item">
-            <strong>Supabase</strong>
-            <p>Gestisce l'autenticazione degli utenti e salva la cronologia delle chat. <a href="https://supabase.com/privacy" target="_blank">Privacy Policy</a></p>
+        <ul>
+            <li>❌ Non raccogliamo nome, email o dati personali</li>
+            <li>❌ Non salviamo i tuoi messaggi</li>
+            <li>❌ Non usiamo cookie di tracciamento</li>
+            <li>❌ Non condividiamo dati con terze parti</li>
+            <li>❌ Non creiamo profili sugli utenti</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <div class="card-icon">💬</div>
+            <h2>Cosa succede ai tuoi messaggi?</h2>
         </div>
-        <div class="service-item">
-            <strong>Render</strong>
-            <p>Ospita il backend del sito. <a href="https://render.com/privacy" target="_blank">Privacy Policy</a></p>
+        <p>Quando scrivi, il tuo messaggio viene inviato a <strong>Cohere</strong> (il motore AI) per generare la risposta. Dopo di ciò non viene salvato da noi. La cronologia esiste solo nella tua sessione — chiudi il browser e sparisce per sempre.</p>
+        <p style="margin-top:12px;">Per saperne di più su Cohere: <a href="https://cohere.com/privacy" target="_blank" style="color:var(--mint);font-weight:900;">cohere.com/privacy</a></p>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <div class="card-icon">🔍</div>
+            <h2>Verificalo tu stesso!</h2>
         </div>
-        <div class="service-item">
-            <strong>Microsoft Clarity</strong>
-            <p>Strumento di analisi del comportamento degli utenti (heatmap e registrazioni anonime). <a href="https://privacy.microsoft.com" target="_blank">Privacy Policy</a></p>
-        </div>
-        <div class="service-item">
-            <strong>Cloudflare Web Analytics</strong>
-            <p>Analisi anonima del traffico web, senza cookie. <a href="https://www.cloudflare.com/privacypolicy/" target="_blank">Privacy Policy</a></p>
+        <p>Non fidarti solo di noi — puoi controllarlo in prima persona:</p>
+        <div class="steps">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <div class="step-title">Apri gli strumenti sviluppatore</div>
+                    <div class="step-desc">Premi <code>F12</code> oppure <code>CMD + Option + I</code> su Mac.</div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <div class="step-title">Controlla i Cookie</div>
+                    <div class="step-desc">Vai su <code>Application</code> → <code>Cookies</code>. La lista sarà <strong>completamente vuota</strong>.</div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <div class="step-title">Guarda il Network</div>
+                    <div class="step-desc">Vai su <code>Network</code> e manda un messaggio. Vedrai solo richieste verso <code>jadgpt.onrender.com</code>(che usiamo per mantenere il sito online) e <code>cohere.ai</code> che gestisce le risposte di JadGPT.</div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <div class="step-title">Chiudi e riapri</div>
+                    <div class="step-desc">Riapri JadGPT — la cronologia è sparita. Conferma che non salviamo nulla!</div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <h2>5. Conservazione dei dati</h2>
-    <p>I dati degli utenti registrati (email e cronologia chat) vengono conservati fino alla cancellazione dell'account. I dati anonimi di analytics non contengono informazioni personali identificabili.</p>
-
-    <h2>6. Diritti dell'utente</h2>
-    <p>In conformità al GDPR, hai il diritto di:</p>
-    <ul>
-        <li>Accedere ai tuoi dati personali</li>
-        <li>Richiedere la rettifica dei tuoi dati</li>
-        <li>Richiedere la cancellazione del tuo account e di tutti i dati associati</li>
-        <li>Opporti al trattamento dei tuoi dati</li>
-    </ul>
-    <p>Per esercitare questi diritti contattaci a: <a href="mailto:enricocolella@outlook.com">enricocolella@outlook.com</a></p>
-
-    <h2>7. Modifiche</h2>
-    <p>Ci riserviamo il diritto di modificare questa Privacy Policy in qualsiasi momento. Le modifiche saranno pubblicate su questa pagina.</p>
-</div>
-
-<!-- COOKIE POLICY -->
-<div class="content" id="cookie">
-    <h1>Cookie Policy</h1>
-    <div class="date">Ultimo aggiornamento: marzo 2025</div>
-
-    <p>Questa Cookie Policy spiega come JadGPT utilizza i cookie e tecnologie simili sul sito <strong>jadgpt.onrender.com</strong>.</p>
-
-    <h2>1. Cosa sono i cookie</h2>
-    <p>I cookie sono piccoli file di testo salvati sul tuo dispositivo quando visiti un sito web. Vengono utilizzati per far funzionare il sito correttamente e per raccogliere informazioni anonime sulla navigazione.</p>
-
-    <h2>2. Cookie tecnici (necessari)</h2>
-    <p>Utilizziamo il <strong>localStorage</strong> del browser per mantenere la sessione di accesso degli utenti registrati. Questi dati sono strettamente necessari al funzionamento del servizio e non richiedono consenso.</p>
-
-    <h2>3. Cookie analitici</h2>
-    <p>Utilizziamo i seguenti strumenti di analisi:</p>
-    <div class="service-list">
-        <div class="service-item">
-            <strong>Microsoft Clarity</strong>
-            <p>Può salvare cookie per registrare sessioni anonime degli utenti (heatmap, click, scroll). <a href="https://privacy.microsoft.com" target="_blank">Privacy Policy</a></p>
+    <div class="card" style="text-align:center;">
+        <div class="card-header" style="justify-content:center;">
+            <div class="card-icon">✅</div>
+            <h2>In sintesi</h2>
         </div>
-        <div class="service-item">
-            <strong>Cloudflare Web Analytics</strong>
-            <p>Non utilizza cookie — raccoglie dati di traffico in modo completamente anonimo e privacy-friendly. <a href="https://www.cloudflare.com/privacypolicy/" target="_blank">Privacy Policy</a></p>
+        <div class="badges">
+            <span class="badge">Zero cookie</span>
+            <span class="badge">Zero dati</span>
+            <span class="badge">Chat temporanea</span>
+            <span class="badge">Zero tracciamento</span>
+            <span class="badge">100% anonimo</span>
         </div>
     </div>
 
-    <h2>4. Gestione dei cookie</h2>
-    <p>Puoi disabilitare i cookie nelle impostazioni del tuo browser. Tieni presente che disabilitare i cookie potrebbe influire sul funzionamento del sito. Puoi anche installare estensioni come uBlock Origin per bloccare i cookie analitici.</p>
+    <div class="contact-box">
+        <p>Hai domande? Scrivici a<br>
+        <a href="mailto:enricocolella@outlook.com">enricocolella@outlook.com</a></p>
+    </div>
 
-    <h2>5. Contatti</h2>
-    <p>Per qualsiasi domanda sui cookie contattaci a: <a href="mailto:enricocolella@outlook.com">enricocolella@outlook.com</a></p>
 </div>
-
-<!-- TERMINI DI UTILIZZO -->
-<div class="content" id="termini">
-    <h1>Termini di Utilizzo</h1>
-    <div class="date">Ultimo aggiornamento: marzo 2025</div>
-
-    <p>Accedendo e utilizzando JadGPT (<strong>jadgpt.onrender.com</strong>) accetti i seguenti Termini di Utilizzo.</p>
-
-    <h2>1. Descrizione del servizio</h2>
-    <p>JadGPT è un'interfaccia di chat basata su intelligenza artificiale, creata da Enrico Colella. Il servizio è disponibile sia in modalità ospite (senza registrazione) che con account personale per salvare la cronologia delle chat.</p>
-
-    <h2>2. Registrazione</h2>
-    <p>Per creare un account è necessario fornire un indirizzo email valido e una password. L'utente è responsabile della sicurezza delle proprie credenziali. La registrazione richiede la conferma via email prima di poter accedere.</p>
-
-    <h2>3. Utilizzo consentito</h2>
-    <p>L'utente si impegna a utilizzare JadGPT in modo lecito e rispettoso. È vietato utilizzare il servizio per:</p>
-    <ul>
-        <li>Generare contenuti illegali, offensivi o dannosi</li>
-        <li>Violare i diritti di terzi</li>
-        <li>Tentare di aggirare i sistemi di sicurezza</li>
-        <li>Scopi commerciali senza autorizzazione</li>
-        <li>Attività di spam o abuso del servizio</li>
-    </ul>
-
-    <h2>4. Limitazione di responsabilità</h2>
-    <p>JadGPT è un servizio sperimentale basato su intelligenza artificiale. Le risposte generate potrebbero non essere accurate o complete. Il titolare non si assume alcuna responsabilità per decisioni prese in base alle risposte dell'AI.</p>
-
-    <h2>5. Cancellazione account</h2>
-    <p>Gli utenti possono richiedere la cancellazione del proprio account e di tutti i dati associati in qualsiasi momento contattando <a href="mailto:enricocolella@outlook.com">enricocolella@outlook.com</a>.</p>
-
-    <h2>6. Disponibilità del servizio</h2>
-    <p>Non garantiamo la disponibilità continua del servizio. JadGPT potrebbe essere sospeso o modificato in qualsiasi momento senza preavviso. Il piano gratuito di Render prevede un limite mensile di ore di utilizzo.</p>
-
-    <h2>7. Proprietà intellettuale</h2>
-    <p>Il codice e il design di JadGPT sono di proprietà di Enrico Colella. È vietata la riproduzione senza autorizzazione.</p>
-
-    <h2>8. Modifiche ai termini</h2>
-    <p>Ci riserviamo il diritto di modificare questi Termini in qualsiasi momento. L'uso continuato del servizio implica l'accettazione delle modifiche.</p>
-
-    <h2>9. Contatti</h2>
-    <p>Per qualsiasi domanda: <a href="mailto:enricocolella@outlook.com">enricocolella@outlook.com</a></p>
-</div>
-
-<script>
-    function mostra(id, el) {
-        document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        el.classList.add('active');
-    }
-</script>
-
 </body>
 </html>
